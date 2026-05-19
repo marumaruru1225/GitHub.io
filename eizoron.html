@@ -3,190 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STORY CIRCLE - FILM THEORY</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>FILM THEORY - ARCHIVE</title>
     <style>
-        /* 500px x 500px 固定サイズ用のコンテナ */
-        .canvas-container {
-            width: 500px;
-            height: 500px;
-            background-color: #FFFFFF;
-            overflow: hidden;
-            position: relative;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
             letter-spacing: 0.05em;
         }
-
-        /* サークル配置用の計算 */
-        .step-node {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+        .wrapper {
+            width: 100%;
+            max-width: 480px;
+            padding: 40px 20px;
         }
-
-        /* 脈動する装飾効果（白黒に合わせて不透明度を調整） */
-        @keyframes pulse-subtle {
-            0%, 100% { transform: scale(1); opacity: 0.05; }
-            50% { transform: scale(1.08); opacity: 0.12; }
+        header {
+            margin-bottom: 50px;
+            text-align: center;
         }
-        .pulse-bg {
-            animation: pulse-subtle 4s infinite ease-in-out;
+        h1 {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 8px;
+        }
+        p.subtitle {
+            font-size: 11px;
+            color: #888888;
+            text-transform: uppercase;
+        }
+        /* 項目リストのスタイル */
+        .menu-list {
+            list-style: none;
+            margin-bottom: 50px;
+        }
+        .menu-item {
+            border-bottom: 1px solid #eeeeee;
+        }
+        .menu-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            color: #111111;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .menu-link:hover {
+            opacity: 0.5;
+        }
+        .arrow {
+            font-size: 12px;
+            font-weight: 300;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-decoration: underline;
+            color: #888888;
+        }
+        .back-link:hover {
+            color: #111111;
         }
     </style>
 </head>
-<body class="bg-gray-50 flex flex-col items-center justify-center min-h-screen p-4">
+<body>
 
-    <div class="canvas-container border border-gray-200 shadow-sm rounded-xl flex flex-col justify-between p-5 select-none">
-        
-        <div class="text-center pt-1">
-            <h1 class="text-base font-bold tracking-[0.2em] text-[#111111]">
-                STORY CIRCLE
-            </h1>
-            <p class="text-[9px] text-gray-400 font-medium tracking-[0.15em] uppercase mt-1">
-                Dan Harmon's 8 Steps / Film Theory
-            </p>
-        </div>
+<div class="wrapper">
+    <header>
+        <h1>Film Theory</h1>
+        <p class="subtitle">Select a topic to view</p>
+    </header>
 
-        <div class="relative flex-grow flex items-center justify-center" style="height: 280px;">
-            
-            <div class="absolute rounded-full border border-dashed border-gray-200 pointer-events-none" style="width: 200px; height: 200px;"></div>
-            
-            <div class="absolute w-[240px] h-[1px] bg-gradient-to-r from-transparent via-gray-200 to-transparent pointer-events-none"></div>
-            <div class="absolute left-2 top-[51%] -translate-y-1/2 text-[8px] font-bold text-gray-400 tracking-wider pointer-events-none uppercase">
-                ORDER
-            </div>
-            <div class="absolute right-2 top-[51%] -translate-y-1/2 text-[8px] font-bold text-gray-400 tracking-wider pointer-events-none uppercase text-right">
-                CHAOS
-            </div>
+    <main>
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="story_circle.html" class="menu-link">
+                    <span>01. Story Circle (インフォグラフィック)</span>
+                    <span class="arrow">→</span>
+                </a>
+            </li>
+            </ul>
 
-            <div class="absolute" style="width: 200px; height: 200px;">
-                <div onclick="selectStep(1)" id="node-1" class="step-node" style="left: 100px; top: 0px;">
-                    <span class="flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] shadow-sm bg-white border-[#111111] text-[#111111]">1</span>
-                </div>
+        <a href="index.html" class="back-link">Back to Classes</a>
+    </main>
+</div>
 
-                <div onclick="selectStep(2)" id="node-2" class="step-node" style="left: 171px; top: 29px;">
-                    <span class="flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] bg-white border-gray-200 text-gray-400">2</span>
-                </div>
-
-                <div onclick="selectStep(3)" id="node-3" class="step-node" style="left: 200px; top: 100px;">
-                    <span class="flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] bg-white border-gray-200 text-gray-400">3</span>
-                </div>
-
-                <div onclick="selectStep(4)" id="node-4" class="step-node" style="left: 171px; top: 171px;">
-                    <span class="flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] bg-white border-gray-200 text-gray-400">4</span>
-                </div>
-
-                <div onclick="selectStep(5)" id="node-5" class="step-node" style="left: 100px; top: 200px;">
-                    <span class="flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] bg-white border-gray-200 text-gray-400">5</span>
-                </div>
-
-                <div onclick="selectStep(6)" id="node-6" class="step-node" style="left: 29px; top: 171px;">
-                    <span class="flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] bg-white border-gray-200 text-gray-400">6</span>
-                </div>
-
-                <div onclick="selectStep(7)" id="node-7" class="step-node" style="left: 0px; top: 100px;">
-                    <span class="flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] bg-white border-gray-200 text-gray-400">7</span>
-                </div>
-
-                <div onclick="selectStep(8)" id="node-8" class="step-node" style="left: 29px; top: 29px;">
-                    <span class="flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] bg-white border-gray-200 text-gray-400">8</span>
-                </div>
-            </div>
-
-            <div class="absolute rounded-full bg-white border border-gray-100 shadow-sm flex flex-col items-center justify-center pointer-events-none z-10" style="width: 90px; height: 90px;">
-                <span id="center-num" class="text-[9px] font-bold text-gray-400 tracking-wider">STEP 1</span>
-                <span id="center-name" class="text-xs font-bold tracking-wider text-[#111111] uppercase mt-0.5">YOU</span>
-                <span id="center-jp" class="text-[9px] text-gray-400 font-medium mt-0.5">主人公</span>
-            </div>
-            
-            <div class="absolute rounded-full bg-[#111111] pulse-bg opacity-5 pointer-events-none" style="width: 120px; height: 120px;"></div>
-
-        </div>
-
-        <div class="bg-gray-50 rounded-lg p-3.5 border border-gray-100 flex flex-col justify-between" style="height: 140px;">
-            <div class="flex items-center justify-between border-b border-gray-200 pb-1.5">
-                <div class="flex items-center space-x-2">
-                    <span id="info-badge" class="px-1.5 py-0.5 rounded text-[9px] font-bold text-white uppercase bg-[#111111]">
-                        1. YOU / 主人公
-                    </span>
-                    <span id="info-status" class="text-[9px] font-medium text-gray-500 px-1.5 py-0.5 rounded bg-gray-200/60">
-                        日常の平穏
-                    </span>
-                </div>
-                <span id="info-english" class="text-[10px] font-mono font-bold text-gray-400">
-                    "Comfort Zone"
-                </span>
-            </div>
-            
-            <p id="info-desc" class="text-[11px] text-[#111111] leading-relaxed font-normal mt-2 h-[44px] overflow-hidden transition-opacity duration-200">
-                主人公は現在、自分にとって最も快適で馴染み深い「安全な場所」にいます。しかし、その安定の中には、まだ見ぬ変化の予兆が静かに潜んでいます。
-            </p>
-
-            <div class="flex items-center justify-between text-[9px] mt-2 pt-1.5 border-t border-dashed border-gray-200">
-                <span class="text-gray-400 font-bold">NOTE:</span>
-                <span id="info-tip" class="font-medium text-gray-600 truncate max-w-[340px]">
-                    視聴者が共感できるように、主人公の「不完全な日常」を描きます。
-                </span>
-            </div>
-        </div>
-
-    </div>
-
-    <a href="index.html" class="mt-6 text-[11px] text-gray-400 uppercase tracking-widest hover:text-black transition-colors underline underline-offset-4">
-        Back to Index
-    </a>
-
-    <script>
-        const stepsData = {
-            1: { name: "YOU", jp: "主人公", status: "日常の平穏", english: "Comfort Zone", desc: "主人公は現在、自分にとって最も快適で馴染み深い「安全な場所」にいます。しかし、その安定の中には、まだ見ぬ変化の予兆が静かに潜んでいます。", tip: "視聴者が共感できるように、主人公の「不完全な日常」を描きます。" },
-            2: { name: "NEED", jp: "中身の欲求", status: "内的な不満", english: "Something is Wrong", desc: "一見満ち足りているように見えても、主人公の心には「何か」が欠けており、無意識のうちに本質的な変化（内的なneed）を求め始めます。", tip: "欲しいもの(Want)と本当に必要なもの(Need)のギャップが物語を動かします。" },
-            3: { name: "GO", jp: "未知への旅立ち", status: "非日常への越境", english: "Crossing the Threshold", desc: "現状維持を捨て去り、引き返せない一線を越えて「未知の状況」や「新たな世界」へと自ら足を踏み入れます。ここから混沌の領域が始まります。", tip: "日常から非日常への境界線を明確にし、緊張感を高めます。" },
-            4: { name: "SEARCH", jp: "探索と適応", status: "試練と学習", english: "Road of Trials", desc: "不慣れな未知の環境に直面し、主人公は数々の試練やトラブルに見舞われます。それらに対処し、失敗を繰り返しながら、徐々にその世界へ適応していきます。", tip: "失敗を通して主人公が新しいスキルや価値観を学ぶ、最も動きのある段階です。" },
-            5: { name: "FIND", jp: "発見と獲得", status: "核心への到達", english: "Meeting with the Goddess", desc: "数々の苦難を乗り越えた末に、主人公はついに「探していたもの（真実、武器、気づき）」を手に入れます。しかし、それは束の間の勝利です。", tip: "サークルの最底（最も日常から遠い場所）で、最大の真実に巡り会います。" },
-            6: { name: "TAKE", jp: "代償の支払い", status: "大きな喪失", english: "Paying the Price", desc: "何かを手に入れることには、必ず大きな代償が伴います。最も価値あるものを得るため、主人公は物理的、精神的、あるいは親しい仲間などの「手痛い代償」を支払います。", tip: "ただ得るだけでなく、痛みを伴うことで「手に入れたもの」の重みが増します。" },
-            7: { name: "RETURN", jp: "帰還", status: "元の場所へ", english: "Bringing it Home", desc: "目的を遂げ、代償を払った主人公は、ついに自分が最初に飛び出した「元々いた馴染み深い日常の場所」へと向かって、帰路につきます。", tip: "非日常から日常の枠組みに戻ることで、旅の完結が近づきます。" },
-            8: { name: "CHANGE", jp: "変化と新生", status: "決定的な変容", english: "Master of Both Worlds", desc: "元の場所に戻った主人公ですが、もはや以前の自分ではありません。経験と喪失を経て「内面的に決定的な変化」を遂げ、新しい目線で世界を見つめています。", tip: "サークルが1周した時、螺旋階段を登ったように主人公の魂は進化しています。" }
-        };
-
-        let currentActive = 1;
-
-        function selectStep(stepNum) {
-            const prevNode = document.getElementById(`node-${currentActive}`);
-            if (prevNode) {
-                const innerSpan = prevNode.querySelector('span');
-                innerSpan.className = "flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] bg-white border-gray-200 text-gray-400";
-            }
-
-            currentActive = stepNum;
-            const activeNode = document.getElementById(`node-${stepNum}`);
-            if (activeNode) {
-                const innerSpan = activeNode.querySelector('span');
-                innerSpan.className = "flex items-center justify-center w-7 h-7 rounded-full border font-bold text-[11px] shadow-sm bg-white border-[#111111] text-[#111111] scale-110";
-            }
-
-            const data = stepsData[stepNum];
-
-            document.getElementById('center-num').innerText = `STEP ${stepNum}`;
-            document.getElementById('center-name').innerText = data.name;
-            document.getElementById('center-jp').innerText = data.jp;
-
-            const infoDesc = document.getElementById('info-desc');
-            infoDesc.style.opacity = '0';
-            
-            setTimeout(() => {
-                document.getElementById('info-badge').innerText = `${stepNum}. ${data.name} / ${data.jp}`;
-                document.getElementById('info-status').innerText = data.status;
-                document.getElementById('info-english').innerText = `"${data.english}"`;
-                infoDesc.innerText = data.desc;
-                document.getElementById('info-tip').innerText = data.tip;
-                infoDesc.style.opacity = '1';
-            }, 100);
-        }
-
-        window.onload = function() {
-            selectStep(1);
-        };
-    </script>
 </body>
 </html>
