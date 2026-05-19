@@ -3,95 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>授業資料ポータル</title>
+    <title>ACADEMIC ARCHIVE</title>
     <style>
-        /* 簡単なデザイン調整 */
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
+        /* 全体のリセットと基本スタイル */
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            letter-spacing: 0.05em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .wrapper {
+            width: 100%;
+            max-width: 480px;
+            padding: 40px 20px;
+        }
+        /* ヘッダー部分 */
+        header {
+            margin-bottom: 60px;
+            text-align: center;
         }
         h1 {
-            text-align: center;
-            color: #2c3e50;
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 8px;
         }
         p.subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 30px;
+            font-size: 12px;
+            color: #888888;
+            text-transform: uppercase;
         }
-        /* セレクトボックスのデザイン */
+        /* セレクトボックスのカスタムデザイン */
+        .select-container {
+            position: relative;
+            margin-bottom: 32px;
+        }
         .select-box {
             width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            border: 2px solid #bdc3c7;
-            border-radius: 6px;
-            background-color: #fff;
+            padding: 16px;
+            font-size: 14px;
+            border: none;
+            border-bottom: 1px solid #111111;
+            background-color: transparent;
+            border-radius: 0;
             cursor: pointer;
-            margin-bottom: 20px;
+            appearance: none; /* デフォルトの矢印を消す */
+            -webkit-appearance: none;
         }
         .select-box:focus {
-            border-color: #3498db;
             outline: none;
+            border-bottom-width: 2px;
+        }
+        /* カスタムの矢印（シンプルなV字の下線） */
+        .select-container::after {
+            content: '';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-right: 1px solid #111111;
+            border-bottom: 1px solid #111111;
+            transform: translateY(-70%) rotate(45deg);
+            pointer-events: none;
         }
         /* ボタンのデザイン */
         .btn {
             display: block;
             width: 100%;
-            padding: 12px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 16px;
+            background-color: #111111;
+            color: #ffffff;
+            border: 1px solid #111111;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
             cursor: pointer;
-            text-align: center;
-            text-decoration: none;
+            transition: all 0.3s ease;
         }
         .btn:hover {
-            background-color: #2980b9;
+            background-color: #ffffff;
+            color: #111111;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>📚 授業資料ポータル</h1>
-    <p class="subtitle">閲覧したい授業を選択してください</p>
+<div class="wrapper">
+    <header>
+        <h1>Academic Archive</h1>
+        <p class="subtitle">Select a course to view materials</p>
+    </header>
 
-    <select id="classSelect" class="select-box">
-        <option value="">-- 授業を選択してください --</option>
-        <option value="eizoron.html">映像論（月曜3限）</option>
-        <option value="english.html">英語コミュニケーション（水曜3限）</option>
-        <option value="programming.html">プログラミング基礎（金曜2限）</option>
-    </select>
+    <main>
+        <div class="select-container">
+            <select id="classSelect" class="select-box">
+                <option value="">SELECT COURSE</option>
+                <option value="math.html">Mathematics (Mon 1)</option>
+                <option value="english.html">English Communication (Wed 3)</option>
+                <option value="programming.html">Computer Science (Fri 2)</option>
+            </select>
+        </div>
 
-    <button class="btn" onclick="goToClassPage()">授業ページを開く</button>
+        <button class="btn" onclick="goToClassPage()">Enter</button>
+    </main>
 </div>
 
 <script>
-    // 選択された授業のページにジャンプする関数
     function goToClassPage() {
         const selectElement = document.getElementById('classSelect');
         const selectedValue = selectElement.value;
 
         if (selectedValue) {
-            // 選択されたファイル（例: math.html など）に移動
             window.location.href = selectedValue;
         } else {
-            alert('授業を選択してください！');
+            alert('Please select a course.');
         }
     }
 </script>
