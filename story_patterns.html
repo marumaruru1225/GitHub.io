@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORY PATTERNS - FILM THEORY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* サークル配置用の計算（10角形、r = 130px、中心を基準に配置） */
+        .step-node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .list-item {
+            transition: all 0.2s ease;
+        }
+
+        /* アニメーション用 */
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-[#111111] font-sans antialiased min-h-screen flex flex-col justify-between tracking-wide">
+
+    <header class="border-b border-gray-200 bg-white px-6 py-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-base font-bold tracking-widest text-[#111111]">STORY PATTERNS</h1>
+            <p class="text-[10px] text-gray-400 font-medium tracking-wider uppercase mt-0.5">Blake Snyder's 10 Genres / Film Theory</p>
+        </div>
+        <a href="eizoron.html" class="text-xs text-gray-400 hover:text-black uppercase tracking-widest transition-colors underline underline-offset-4">
+            Back to Topics
+        </a>
+    </header>
+
+    <main class="max-w-6xl w-full mx-auto px-6 py-12 flex-grow flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12">
+        
+        <div class="relative w-[340px] h-[340px] flex-shrink-0 flex items-center justify-center select-none bg-white rounded-xl border border-gray-100 shadow-sm">
+            
+            <div class="absolute rounded-full border border-dashed border-gray-200 pointer-events-none" style="width: 260px; height: 260px;"></div>
+
+            <div onclick="selectStep(1)" id="node-1" class="step-node" style="left: 170px; top: 40px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs shadow-sm bg-white border-[#2B54A4] text-[#2B54A4]">1</span>
+            </div>
+            <div onclick="selectStep(2)" id="node-2" class="step-node" style="left: 246px; top: 65px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">2</span>
+            </div>
+            <div onclick="selectStep(3)" id="node-3" class="step-node" style="left: 294px; top: 130px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">3</span>
+            </div>
+            <div onclick="selectStep(4)" id="node-4" class="step-node" style="left: 294px; top: 210px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">4</span>
+            </div>
+            <div onclick="selectStep(5)" id="node-5" class="step-node" style="left: 246px; top: 275px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">5</span>
+            </div>
+            <div onclick="selectStep(6)" id="node-6" class="step-node" style="left: 170px; top: 300px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">6</span>
+            </div>
+            <div onclick="selectStep(7)" id="node-7" class="step-node" style="left: 94px; top: 275px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">7</span>
+            </div>
+            <div onclick="selectStep(8)" id="node-8" class="step-node" style="left: 46px; top: 210px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">8</span>
+            </div>
+            <div onclick="selectStep(9)" id="node-9" class="step-node" style="left: 46px; top: 130px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">9</span>
+            </div>
+            <div onclick="selectStep(10)" id="node-10" class="step-node" style="left: 94px; top: 65px;">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400">10</span>
+            </div>
+
+            <div class="absolute w-[120px] h-[120px] rounded-full bg-white border border-gray-100 shadow-sm flex flex-col items-center justify-center pointer-events-none z-10 text-center px-1">
+                <span id="center-num" class="text-[9px] font-bold text-gray-400 tracking-wider">PATTERN 1</span>
+                <span id="center-name" class="text-xs font-extrabold tracking-tight text-gray-800 mt-1 leading-snug" style="color: #2B54A4;">家の中の<br>モンスター</span>
+            </div>
+        </div>
+
+        <div class="w-full sm:w-[280px] shrink-0 bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+            <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 px-1">Pattern List</h3>
+            <div class="flex flex-col gap-1 text-xs">
+                <div onclick="selectStep(1)" id="li-1" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer bg-blue-50 font-bold text-black border-l-4" style="border-color: #2B54A4;">
+                    <span class="w-4">1.</span><span class="truncate">家の中のモンスター</span>
+                </div>
+                <div onclick="selectStep(2)" id="li-2" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">2.</span><span class="truncate">金の羊毛</span>
+                </div>
+                <div onclick="selectStep(3)" id="li-3" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">3.</span><span class="truncate">魔法のランプ</span>
+                </div>
+                <div onclick="selectStep(4)" id="li-4" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">4.</span><span class="truncate">難題に直面した凡人</span>
+                </div>
+                <div onclick="selectStep(5)" id="li-5" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">5.</span><span class="truncate">人生の岐路</span>
+                </div>
+                <div onclick="selectStep(6)" id="li-6" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">6.</span><span class="truncate">相棒愛</span>
+                </div>
+                <div onclick="selectStep(7)" id="li-7" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">7.</span><span class="truncate">なぜやったのか</span>
+                </div>
+                <div onclick="selectStep(8)" id="li-8" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">8.</span><span class="truncate">バカの勝利</span>
+                </div>
+                <div onclick="selectStep(9)" id="li-9" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">9.</span><span class="truncate">組織の中で</span>
+                </div>
+                <div onclick="selectStep(10)" id="li-10" class="list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600">
+                    <span class="w-4 text-[#2B54A4]">10.</span><span class="truncate">スーパーヒーロー</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-grow w-full bg-white border border-gray-200 shadow-sm rounded-xl p-6 lg:p-8 flex flex-col justify-between min-h-[340px]">
+            <div>
+                <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <span id="detail-step" class="px-3 py-1 rounded text-xs font-bold text-white uppercase tracking-wider block text-center" style="background-color: #2B54A4;">
+                            1. 家の中のモンスター
+                        </span>
+                        <span id="detail-subtitle" class="text-xs font-semibold text-gray-500 px-2 py-1 rounded bg-gray-100 text-center block">
+                            恐怖と閉鎖空間のサバイバル
+                        </span>
+                    </div>
+                    <span id="detail-english" class="text-xs font-mono font-bold text-gray-400 hidden sm:inline">
+                        "Monster in the House"
+                    </span>
+                </div>
+                
+                <p id="detail-desc" class="text-sm text-gray-700 leading-relaxed font-normal mt-6 fade-in">
+                    『閉ざされた空間（家）』の中に『恐ろしい脅威（モンスター）』が入り込み、誰かが『重大な罪（ルール破り）』を犯したことで襲われるサバイバルストーリー。
+                </p>
+            </div>
+
+            <div class="mt-8 pt-4 border-t border-dashed border-gray-200">
+                <div class="flex items-start space-x-2">
+                    <span class="text-xs font-bold text-[#2B54A4] bg-blue-50 px-2 py-0.5 rounded shrink-0">代表作</span>
+                    <span id="detail-example" class="text-xs font-medium text-gray-600 leading-relaxed">
+                        『エイリアン』『ジョーズ』『ジュラシック・パーク』『シャイニング』
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-gray-200 bg-white py-4 text-center text-[10px] text-gray-400 tracking-wider">
+        &copy; FILM THEORY DIGITAL ARCHIVE
+    </footer>
+
+    <script>
+        const slideSteps = {
+            1: { num: "PATTERN 1", name: "家の中の<br>モンスター", jpName: "家の中のモンスター", subtitle: "恐怖と閉鎖空間のサバイバル", english: "Monster in the House", desc: "『閉ざされた空間（家）』の中に『恐ろしい脅威（モンスター）』が入り込み、誰かが『重大な罪（ルール破り）』を犯したことで襲われるサバイバルストーリー。", example: "『エイリアン』『ジョーズ』『ジュラシック・パーク』『シャイニング』" },
+            2: { num: "PATTERN 2", name: "金の羊毛", jpName: "金の羊毛", subtitle: "目的を追うロードムービー", english: "Golden Fleece", desc: "主人公と仲間が『明確なゴール（お宝）』を目指して旅に出て、様々な道中（ロード）で試練を乗り越える。最後に手に入るのは、宝ではなく『自分自身の成長』です。", example: "『スター・ウォーズ』『スタンド・バイ・ミー』『ロード・オブ・ザ・リング』" },
+            3: { num: "PATTERN 3", name: "魔法の<br>ランプ", jpName: "魔法のランプ", subtitle: "願いの獲得と、手痛い代償", english: "Out of the Bottle", desc: "平凡な人間が『魔法の力（奇跡）』を手に入れ、一時的に大成功を収めるものの、次第にその代償に苦しめられ、最終的には『魔法なしの現実の良さ』を学ぶ物語。", example: "『ブルース・オールマイティ』『マスク』『ライアーライアー』" },
+            4: { num: "PATTERN 4", name: "難題に直面<br>した凡人", jpName: "難題に直面した凡人", subtitle: "過酷な運命に巻き込まれた弱者", english: "Dude with a Problem", desc: "全くの『普通の人（凡人）』が、突如として『巨大すぎる困難・陰謀』に巻き込まれ、自らの知恵と生存本能だけで強大な敵に立ち向かわざるを得なくなる緊迫のドラマ。", example: "『ダイ・ハード』『シンドラーのリスト』『ターミネーター』" },
+            5: { num: "PATTERN 5", name: "人生の<br>岐路", jpName: "人生の岐路", subtitle: "誰もが通る人生の痛みの克服", english: "Rites of Passage", desc: "青春の終わり、失恋、肉親の死、老いといった『人生の大きな転換期（痛み）』に直面した主人公が、その現実から逃げるのをやめ、受け入れて大人になるまでの変化を描く。", example: "『クレイマー、クレイマー』『ギルバート・グレイプ』『アメリカン・ビューティー』" },
+            6: { num: "PATTERN 6", name: "相棒愛", jpName: "相棒愛", subtitle: "反発し合う二人の絆の証明", english: "Buddy Love", desc: "最初は性格が全く合わず『衝突しあう二人（バディや恋人）』が、共通の冒険や目的を通じて欠点を補い合い、最後には『お互いが無二の存在』であることを知る物語。", example: "『リーサル・ウェポン』『トイ・ストーリー』『ローマの休日』" },
+            7: { num: "PATTERN 7", name: "なぜやった<br>のか", jpName: "なぜやったのか", subtitle: "人間の心の闇を暴くミステリー", english: "Whydunit", desc: "事件の犯人（Who）やトリック（How）よりも、『なぜそれを犯したのか（Why）』という人間の心の闇や秘密を暴いていく。観客は探偵を通じて歪んだ社会や人間性を知ります。", example: "『市民ケーン』『羊たちの沈黙』『ゾディアック』『セブン』" },
+            8: { num: "PATTERN 8", name: "バカの<br>勝利", jpName: "バカの勝利", subtitle: "純粋な愚者（弱者）が強者を負かす痛快劇", english: "Fool Triumphant", desc: "社会的に見下されている『愚者（バカ）』が、その純粋さと愚直さによって、傲慢で冷酷な『強者・権力者』をドタバタ劇の末に打ち負かし、皆に希望を与えるシンデレラストーリー。", example: "『フォレスト・ガンプ』『ホーム・アローン』『ナティ・プロフェッサー』" },
+            9: { num: "PATTERN 9", name: "組織の<br>中で", jpName: "組織の中で", subtitle: "集団のルールと個人の尊厳", english: "Institutionalized", desc: "学校、会社、マフィア、国家などの『強大な組織（グループ）』に所属する主人公が、組織の狂ったルールに同化するか、自らの信念を貫いて反逆するかの葛藤を描く。", example: "『ゴッドファーザー』『カッコーの巣の上で』『プラトーン』" },
+            10: { num: "PATTERN 10", name: "スーパー<br>ヒーロー", jpName: "スーパーヒーロー", subtitle: "孤独と特別な宿命を背負う者", english: "Superhero", desc: "常人離れした『圧倒的な能力・才能』を持つ主人公が、凡人たちの理不尽な嫉妬や恐怖に晒されながらも、自らの孤独な運命を受け入れ、人々のために戦う物語。", example: "『ダークナイト』『グラディエーター』『ビューティフル・マインド』" }
+        };
+
+        let currentActive = 1;
+
+        function selectStep(stepNum) {
+            const prevNode = document.getElementById(`node-${currentActive}`);
+            if (prevNode) {
+                const innerSpan = prevNode.querySelector('span');
+                innerSpan.className = "flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs bg-white border-gray-200 text-gray-400";
+            }
+
+            const prevLi = document.getElementById(`li-${currentActive}`);
+            if (prevLi) {
+                prevLi.className = "list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer hover:bg-gray-50 text-gray-600";
+                const numSpan = prevLi.querySelector('span:first-child');
+                numSpan.className = "w-4 text-[#2B54A4]";
+            }
+
+            currentActive = stepNum;
+            const activeNode = document.getElementById(`node-${stepNum}`);
+            if (activeNode) {
+                const innerSpan = activeNode.querySelector('span');
+                innerSpan.className = "flex items-center justify-center w-8 h-8 rounded-full border font-bold text-xs shadow-md bg-white border-[#2B54A4] text-[#2B54A4] scale-110";
+            }
+
+            const activeLi = document.getElementById(`li-${stepNum}`);
+            if (activeLi) {
+                activeLi.className = "list-item p-2 rounded-lg flex items-center space-x-2 cursor-pointer bg-blue-50 font-bold text-black border-l-4";
+                activeLi.style.borderColor = "#2B54A4";
+                const numSpan = activeLi.querySelector('span:first-child');
+                numSpan.className = "w-4 text-black";
+            }
+
+            const data = slideSteps[stepNum];
+
+            document.getElementById('center-num').innerText = data.num;
+            document.getElementById('center-name').innerHTML = data.name;
+
+            document.getElementById('detail-step').innerText = `${stepNum}. ${data.jpName}`;
+            document.getElementById('detail-subtitle').innerText = data.subtitle;
+            document.getElementById('detail-english').innerText = `"${data.english}"`;
+            
+            const detailDesc = document.getElementById('detail-desc');
+            detailDesc.classList.remove('fade-in');
+            void detailDesc.offsetWidth; 
+            detailDesc.innerText = data.desc;
+            detailDesc.classList.add('fade-in');
+
+            document.getElementById('detail-example').innerText = data.example;
+        }
+
+        window.onload = function() {
+            selectStep(1);
+        };
+    </script>
+</body>
+</html>
